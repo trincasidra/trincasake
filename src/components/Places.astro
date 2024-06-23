@@ -1,19 +1,29 @@
 ---
+import { db, Place } from "astro:db";
 import PlaceCard from "./PlaceCard.astro";
-import { getLatestLaunches } from "../services/spacex";
 
-const launches = await getLatestLaunches();
+const places = await db.select().from(Place);
 ---
 
 <div class="grid gap-8 sm:grid-cols-1 lg:grid-cols-1">
     {
-        launches.map((launch) => (
+        places.map((place) => (
             <PlaceCard
-                id={launch.id}
-                img={launch.links.patch.small}
-                details={launch.details}
-                flightNumber={launch.flight_number}
-                success={launch.success}
+                id = {place.id},
+                name = {place.name},
+                nameRoman = {place.nameRoman},
+                rating = {place.rating},
+                review = {place.review},
+                image = {place.image},
+                website = {place.website},
+                address = {place.address},
+                gmaps = {place.gmaps},
+                city = {place.city},
+                state = {place.state},
+                country = {place.country},
+                tags = {place.tags},
+                video = {place.video},
+                needsReservation = {place.needsReservation}
             />
         ))
     }

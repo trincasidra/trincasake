@@ -1,14 +1,44 @@
 ---
+import { Place } from "astro:db";
+import Link from "./buttons/Link.astro";
+import Rating from "./Rating.astro";
+import Tag from "./Tag.astro";
+
 interface Props {
     id: string;
-    img: string;
-    success: boolean;
-    flightNumber: number;
-    details: string | null;
+    name: string;
+    nameRoman: string | null;
+    rating: number | null;
+    review: string | null;
+    image: string;
+    website: string | null;
+    address: string;
+    gmaps: string;
+    city: string;
+    state: string;
+    country: string;
+    tags: string;
+    video: string | null;
+    needsReserve: boolean;
 }
 
-const { id, img, success, flightNumber, details } = Astro.props;
-const successText = success ? "Éxito" : "Fracaso";
+const {
+    id,
+    name,
+    nameRoman,
+    rating,
+    review,
+    image,
+    website,
+    address,
+    gmaps,
+    city,
+    state,
+    country,
+    tags,
+    video,
+    needsReserve,
+} = Astro.props;
 ---
 
 <!--
@@ -46,19 +76,42 @@ const successText = success ? "Éxito" : "Fracaso";
         </p>
     </header>
 </a>-->
-
-<div class="max-w-sm w-full lg:max-w-full lg:flex">
-    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-l-2xl text-center overflow-hidden" style="background-image: url('/src/assets/ramen.jpg')" title="Ramen Bowl">
+<div class="max-w-sm w-full lg:max-w-full flex">
+    <div
+        class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-l-2xl text-center overflow-hidden"
+        style=`background-image: url(${image})`
+        title="Restaurant Image"
+    >
     </div>
-    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-r-2xl p-4 flex flex-col justify-between leading-normal">
-        <div class="mb-8">
-            <div class="text-gray-900 font-bold text-xl mb-2">Random Ramen Place</div>
-            <p class="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
-        </div>
-        <div class="px-6 pt-4 pb-2">
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#ramen</span>
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#osaka</span>
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#cheap</span>
+    <div
+        class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-r-2xl p-4 flex flex-col flex-1 justify-between leading-normal"
+    >
+        <div class="align-middle">
+            {
+                rating && (
+                    <div class="float-right">
+                        <Rating score={rating} />
+                    </div>
+                )
+            }
+            {
+                nameRoman && (
+                    <p class="font-normal text-sm text-gray-500 dark:text-gray-400">
+                        {nameRoman}
+                    </p>
+                )
+            }
+            <div
+                class="mb-4 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
+            >
+                {name}
+            </div>
+            {website && <Link href={website}>Website</Link>}
+            <br />
+            <Link href={gmaps}>{address}</Link>
+            <div class="pt-4 pb-0 float-right">
+                {tags.split(",").map((tag) => <Tag>{tag}</Tag>)}
+            </div>
         </div>
     </div>
 </div>

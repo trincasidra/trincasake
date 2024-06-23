@@ -1,0 +1,23 @@
+---
+import HeartEmptyIcon from "./icons/HeartEmptyIcon.astro";
+import HeartFullIcon from "./icons/HeartFullIcon.astro";
+import HeartHalfIcon from "./icons/HeartHalfIcon.astro";
+
+interface Props {
+    score: number;
+}
+
+const { score } = Astro.props;
+const shortScore = score / 2;
+const full = Math.floor(shortScore);
+const empty = Math.floor(5 - shortScore);
+const fullHearts = Array(full).fill(true);
+const halfHeart = score % 2;
+const emptyHearts = Array(empty).fill(true);
+---
+
+<div class="flex justify-center w-auto space-x-1 lg:space-x-2">
+    {fullHearts.map((heart) => <HeartFullIcon />)}
+    {halfHeart && <HeartHalfIcon />}
+    {emptyHearts.map((heart) => <HeartEmptyIcon />)}
+</div>

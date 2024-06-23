@@ -1,0 +1,17 @@
+---
+import LinkIcon from "../icons/LinkIcon.astro";
+
+interface Props {
+    href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a
+    href="{href}"
+    class="inline-flex font-medium items-center text-blue-600 hover:underline"
+>
+    <slot />
+    <LinkIcon />
+</a>
