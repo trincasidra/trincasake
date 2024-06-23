@@ -1,0 +1,35 @@
+---
+import CloseIcon from "../components/icons/CloseIcon.astro";
+---
+
+<dialog
+    class="modal-dialog items-center justify-center bg-transparent px-4 text-2xl text-white backdrop:bg-black/70 sn:px-0"
+>
+    <div
+        class="relative block w-[560px] overflow-hidden bg-transparent sm:w-[740px]"
+    >
+        <slot />
+        <button
+            type="button"
+            class="close-dialog fixed right-8 top-8 rounded bg-black/60 p-4 transition hover:scale-110 hover:bg-accent hover:text-black"
+        >
+            <CloseIcon />
+        </button>
+    </div>
+</dialog>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const $modalDialog = document.querySelector(
+            ".modal-dialog",
+        ) as HTMLDialogElement;
+        const $closeButton = document.querySelector(".close-dialog");
+
+        $closeButton?.addEventListener("click", () => $modalDialog.close());
+
+        $modalDialog.addEventListener("click", (event) => {
+            const target = event.target as HTMLElement;
+            if (target === $modalDialog) $modalDialog.close();
+        });
+    });
+</script>
