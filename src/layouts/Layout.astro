@@ -1,4 +1,6 @@
 ---
+import "@fontsource-variable/jost";
+import NoiseBackground from "../components/NoiseBackground.astro";
 import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 import { ViewTransitions } from "astro:transitions";
@@ -22,6 +24,7 @@ const { title } = Astro.props;
         <ViewTransitions />
     </head>
     <body class="bg-red-200 min-h-screen pb-32">
+        <NoiseBackground />
         <Header />
         <main class="max-w-6xl px-4 m-auto">
             <div class="grid grid-cols-4 gap-4">
@@ -35,3 +38,9 @@ const { title } = Astro.props;
         </main>
     </body>
 </html>
+
+<style is:global>
+    html {
+        font-family: "Jost Variable", system-ui, sans-serif;
+    }
+</style>
