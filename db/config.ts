@@ -7,7 +7,7 @@ const Place = defineTable({
     nameRoman: column.text({ optional: true }),
     rating: column.number({ optional: true }),
     review: column.text({ optional: true }),
-    image: column.text(),
+    image: column.text({ optional: true }),
     website: column.text({ optional: true }),
     address: column.text(),
     gmaps: column.text(),
